@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/entities/user.dart';
 import '../../../../core/injection_container.dart';
+import '../../domain/entities/authenticated_user.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 /// Authentication state
 class AuthState {
-  final User? user;
+  final AuthenticatedUser? user;
   final bool isLoading;
   final String? error;
 
@@ -19,7 +19,7 @@ class AuthState {
   });
 
   AuthState copyWith({
-    User? user,
+    AuthenticatedUser? user,
     bool? isLoading,
     String? error,
   }) {

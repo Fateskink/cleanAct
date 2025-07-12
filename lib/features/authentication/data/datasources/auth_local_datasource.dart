@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_constants.dart';
-import '../models/user_model.dart';
+import '../models/authenticated_user_model.dart';
 
 /// Local data source for authentication
 abstract class AuthLocalDataSource {
-  Future<void> cacheUser(UserModel user);
-  Future<UserModel?> getCachedUser();
+  Future<void> cacheUser(AuthenticatedUserModel user);
+  Future<AuthenticatedUserModel?> getCachedUser();
   Future<void> clearCache();
   Future<bool> isUserCached();
 }
@@ -20,7 +20,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   const AuthLocalDataSourceImpl(this.sharedPreferences);
 
   @override
-  Future<void> cacheUser(UserModel user) async {
+  Future<void> cacheUser(AuthenticatedUserModel user) async {
     final userJson = json.encode(user.toJson());
     await sharedPreferences.setString(AppConstants.userKey, userJson);
 
@@ -29,12 +29,12 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  Future<UserModel?> getCachedUser() async {
+  Future<AuthenticatedUserModel?> getCachedUser() async {
     final userJson = sharedPreferences.getString(AppConstants.userKey);
 
     if (userJson != null) {
       final userMap = json.decode(userJson) as Map<String, dynamic>;
-      return UserModel.fromJson(userMap);
+      return AuthenticatedUserModel.fromJson(userMap);
     }
 
     return null;

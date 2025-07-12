@@ -1,14 +1,15 @@
 import '../../../../core/network/api_client.dart';
-import '../models/user_model.dart';
+import '../../../../core/entities/entity_factory.dart';
+import '../models/authenticated_user_model.dart';
 
 /// Remote data source for authentication
 abstract class AuthRemoteDataSource {
-  Future<UserModel> login({
+  Future<AuthenticatedUserModel> login({
     required String email,
     required String password,
   });
 
-  Future<UserModel> register({
+  Future<AuthenticatedUserModel> register({
     required String name,
     required String email,
     required String password,
@@ -22,7 +23,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImpl(this.apiClient);
 
   @override
-  Future<UserModel> login({
+  Future<AuthenticatedUserModel> login({
     required String email,
     required String password,
   }) async {
@@ -35,14 +36,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return UserModel.fromJson(response.data);
+      return EntityFactory.createAuthenticatedUserFromApi(response.data);
     } else {
       throw Exception('Login failed: ${response.statusMessage}');
     }
   }
 
   @override
-  Future<UserModel> register({
+  Future<AuthenticatedUserModel> register({
     required String name,
     required String email,
     required String password,
@@ -57,7 +58,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return UserModel.fromJson(response.data);
+      return EntityFactory.createAuthenticatedUserFromApi(response.data);
     } else {
       throw Exception('Registration failed: ${response.statusMessage}');
     }

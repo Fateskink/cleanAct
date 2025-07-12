@@ -37,10 +37,9 @@ class AuthRepositoryImpl implements AuthRepository {
       // Cache user data locally
       await localDataSource.cacheUser(userModel);
 
-      // Convert to domain entity and return result
-      final user = userModel.toEntity();
+      // userModel is already an AuthenticatedUser since it extends it
       return AuthResult(
-        user: user,
+        user: userModel,
         message: 'Login successful',
       );
     } on NetworkFailure {
@@ -72,10 +71,9 @@ class AuthRepositoryImpl implements AuthRepository {
       // Cache user data locally
       await localDataSource.cacheUser(userModel);
 
-      // Convert to domain entity and return result
-      final user = userModel.toEntity();
+      // userModel is already an AuthenticatedUser since it extends it
       return AuthResult(
-        user: user,
+        user: userModel,
         message: 'Registration successful',
       );
     } on NetworkFailure {
@@ -92,9 +90,9 @@ class AuthRepositoryImpl implements AuthRepository {
       final userModel = await localDataSource.getCachedUser();
 
       if (userModel != null) {
-        final user = userModel.toEntity();
+        // userModel is already an AuthenticatedUser since it extends it
         return AuthResult(
-          user: user,
+          user: userModel,
           message: 'User loaded from cache',
         );
       }

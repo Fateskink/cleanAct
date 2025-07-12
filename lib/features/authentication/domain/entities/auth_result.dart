@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/entities/user.dart';
+import 'authenticated_user.dart';
 
 /// Authentication result containing user data
+/// Uses AuthenticatedUser instead of full User entity for better performance
 class AuthResult extends Equatable {
-  final User user;
+  final AuthenticatedUser user;
   final String message;
 
   const AuthResult({
