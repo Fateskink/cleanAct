@@ -19,13 +19,15 @@ lib/
 │   ├── theme/                     # App theme, colors, text styles
 │   ├── utils/                     # Helper functions, extensions
 │   ├── widgets/                   # Reusable UI components
+│   ├── entities/                  # SHARED ENTITIES across modules
+│   │   ├── user.dart             # Core User entity used everywhere
+│   │   └── base_entity.dart      # Base entity with common properties
 │   └── injection_container.dart   # Dependency injection setup
 ├── features/
 │   ├── authentication/           # Login, register, profile
 │   │   ├── domain/
 │   │   │   ├── entities/
-│   │   │   │   ├── user.dart
-│   │   │   │   └── auth_result.dart
+│   │   │   │   └── auth_result.dart  # Authentication-specific entity
 │   │   │   ├── repositories/
 │   │   │   │   └── auth_repository.dart
 │   │   │   └── usecases/
@@ -37,7 +39,7 @@ lib/
 │   │   │   │   ├── auth_remote_datasource.dart
 │   │   │   │   └── auth_local_datasource.dart
 │   │   │   ├── models/
-│   │   │   │   ├── user_model.dart
+│   │   │   │   ├── user_model.dart        # Data model for User entity
 │   │   │   │   └── auth_result_model.dart
 │   │   │   └── repositories/
 │   │   │       └── auth_repository_impl.dart
@@ -55,7 +57,7 @@ lib/
 │   │           └── auth_button.dart
 │   ├── academy/                  # Main learning module
 │   │   ├── domain/
-│   │   │   ├── entities/
+│   │   │   ├── entities/         # ONLY Academy-specific entities
 │   │   │   │   ├── course.dart
 │   │   │   │   ├── lesson.dart
 │   │   │   │   ├── assignment.dart
